@@ -102,6 +102,15 @@ func (ctrl *BBSController) Update(c *gin.Context) {
 
 // 削除処理
 func (ctrl *BBSController) Delete(c *gin.Context) {
-	ctrl.DB.Delete(&models.BBS{}, c.Param("id"))
+	id := c.Param("id")
+
+	// データベースから削除
+	if err := ctrl.DB.Delete(&models.BBS{}, id).Error; err != nil {
+		// エラーがあれば一覧に戻してメッセージ（本来はフラッシュ等で通知）
+		c.Redirect(http.StatusFound, "/bbs/")
+		return
+	}
+
+	// 削除後は一覧にリダイレクト
 	c.Redirect(http.StatusFound, "/bbs/")
 }
