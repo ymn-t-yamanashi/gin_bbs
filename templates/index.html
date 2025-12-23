@@ -1,0 +1,18 @@
+
+{{ template "header.html" . }}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">投稿一覧</h1>
+    <a href="/bbs/new" class="bg-indigo-600 text-white px-4 py-2 rounded">新規投稿</a>
+</div>
+<div class="space-y-4">
+    {{ range .posts }}
+    <div class="border-b pb-2 flex justify-between items-center">
+        <div>
+            <div class="font-bold">{{ .Name }}</div>
+            <div class="text-gray-600">{{ .Body }}</div>
+        </div>
+        <a href="/bbs/{{ .ID }}" class="text-blue-500 text-sm">詳細</a>
+    </div>
+    {{ end }}
+</div>
+{{ template "footer.html" . }}
