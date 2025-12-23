@@ -1,0 +1,30 @@
+{{ template "header.html" . }}
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-extrabold text-gray-800">種類一覧</h1>
+    <a href="/kind/new" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition">
+        新規投稿
+    </a>
+</div>
+
+<div class="space-y-4">
+    {{ range .posts }}
+    <div class="border rounded-lg p-4 flex justify-between items-center shadow-sm bg-white">
+        <div>
+            <p class="text-gray-600">{{ .Kind }}</p>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <a href="/kind/{{ .ID }}" class="text-blue-500 hover:underline text-sm">詳細</a>
+            
+            <form action="/kind/{{ .ID }}/delete" method="POST" onsubmit="return confirm('本当に削除しますか？')">
+                <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-semibold">
+                    削除
+                </button>
+            </form>
+        </div>
+    </div>
+    {{ else }}
+    <p class="text-center text-gray-500 py-10">投稿がありません。</p>
+    {{ end }}
+</div>
+{{ template "footer.html" . }}
